@@ -1,0 +1,56 @@
+BorderCrossingborderCrossing.bat
+Executes the entire model.
+Some cars queue up in the begining, cars then start to get processed,
+then some more cars arrive at the queue.
+Output incidates the time (queue time + processing time) the car left the system and if they were admitted(1) into the country 
+or detained(0).
+
+BorderCrossingPrimaryInspection.bat
+Executes the primary inspection coupled model.
+Each input is greater than the longest time a car takes to be processed since only one car can be processed at a time.
+Input cars to see if they pass Vehicle & Person Query Inspections.
+Output timestamp shows random processing time.
+Output: Pass=1, Fail=0.
+
+BorderCrossingSecondaryInspection.bat
+executes the secondary inspection coupled model.
+Each input is greater than the longest time a car takes to be processed since only one car can be processed at a time.
+Input cars to see if they pass Admissibility and Customs Inspections.
+Out cars will indicate if the car passed or failed both or either inspections.
+
+BorderCrossingActionTaker.bat
+Executes the action taker atomic model.
+Each input is greater than the longest time a car takes to be processed since only one car can be processed at a time.
+Input a 1 and 0 to cover all input possibilities (pass or fail).
+Output timestamp shows random processing time.
+Sends signal back to 'Traffic Input Queue' to indicate that a car has left the system and to send in the next car.
+
+BorderCrossingAdmissibilityEvaluator.bat
+Executes the Admissibility Evaluator atomic model.
+Each input is greater than the longest time a car takes to be processed since only one car can be processed at a time.
+PIPassIn 1 indicates that a car passed primary inspection and therefore is allowed to pass.
+If PIPassIn is missing, then need to check other two parameters from Secondary Inspection (AdmIIn & CIIn).
+Car is only allowed to pass if both AdmIIn & CIIn tests pass.
+Output timestamp shows random processing time.
+
+Similar atomic models:
+BorderCrossingAdmissibilityInspection.bat
+BorderCrossingCustomsInspection.bat
+BorderCrossingPersonQueryPerformer.bat
+BorderCrossingVehicleQueryPerformer.bat
+Each input is greater than the longest time a car takes to be processed since only one car can be processed at a time.
+Output timestamp shows random processing time.
+95% of the time a car will successfully pass the test (indicated by output Pass=1, Fail=0).
+
+BorderCrossingQueryResultReviewer.bat
+Executes the Query Result Reviewer atomic model.
+Each input is greater than the longest time a car takes to be processed since only one car can be processed at a time.
+Need to check two parameters (pqpin  & vqpin) to see if car passed those inspections.
+Car passes inspection if both pqpin & vqpin tests pass.
+Output timestamp shows random processing time.
+Output: Pass=1, Fail=0.
+
+BorderCrossingTrafficInputQueue.bat
+Executes the Traffic Input Queue atomic model.
+Input a bunch of cars into the queue and then let out the first car.
+next car allowed to go if system is free (car leaves the system).
